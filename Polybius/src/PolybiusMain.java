@@ -81,7 +81,8 @@ public class PolybiusMain {
 		int agility = NameAndClassSelection.agility;
 		int magic = NameAndClassSelection.magic;
 		int balance = playerStats.wallet;
-
+		int health = playerStats.health;
+		
 		System.out.println("Class Type: " + stats);
 		System.out.println("	Strength: " + strength);
 		System.out.println("	Defense: " + defense);
@@ -93,6 +94,8 @@ public class PolybiusMain {
 		}
 		System.out.println("");
 		System.out.println("Balance: $" + balance);
+		System.out.println("");
+		System.out.print("Health: " +health);
 		System.out.println("");
 		System.out.println("Inventory:");
 		int lineNumber = 0;
@@ -396,7 +399,7 @@ public class PolybiusMain {
 								System.out.println("Buffita: Alright, LET'S DO THIS!");
 								System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
 								game.nextLine();
-								CombatSystem.combat();
+								CombatSystem.combat("Punching Bag", 10, 0);
 							case "N":
 								System.out.println("Buffita: Oh, well if you decide you want to take your anger out, come back. (Press Enter to Continue)");
 								carnival();
