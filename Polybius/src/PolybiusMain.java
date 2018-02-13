@@ -392,93 +392,105 @@ public class PolybiusMain {
 								}
 							}
 						}
-					}
-				}
-			case "STRENGTH":
-				if (defeated == true) {
-					System.out.println("Buffita looks over at you with a piercing stare, you know better than to keep on going towards her. You turn around and go back to the center. (Press Enter to Continue");
-					carnival();
-				} else {
-					System.out.println("You walk over to the second booth and see a punching bag and a trainer. The lady behind the counter is completely ripped, her bicep is bigger than your entire head.");
-					System.out.println("Buffita: Hey! How'd you like to test your strength against this here punching bag? (Y/N)");
-					while(punch == true) {
-						String punching = game.nextLine().toUpperCase();
-						switch (punching) {
-						case "Y":
-							System.out.println("Buffita: Alright, LET'S DO THIS!");
-							System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
-							game.nextLine();
-							try {
-								CombatSystem.combat("Punching Bag", 10, 0);
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							if (CombatSystem.enemyHealth <= 0) {
-								System.out.println("Buffita: Oh, wow... you actually were able to beat my challenge... well, here's $5... go wild. (Press Enter to Continue)");
-								playerStats.wallet = playerStats.wallet +5;
-								game.nextLine();
-								System.out.println("$5 was just added to your balance. (Press Enter to Continue)");
-								game.nextLine();
-								System.out.println("Buffita: Okay, now get the heck out of here. (Press Enter to Continue)");
-								defeated = true;
-								carnival();
-								break;
-							}	break;
-						case "N":
-							System.out.println("Buffita: Oh, well if you decide you want to take your anger out, come back. (Press Enter to Continue)");
+					case "STRENGTH":
+						if (defeated == true) {
+							System.out.println("Buffita looks over at you with a piercing stare, you know better than to keep on going towards her. You turn around and go back to the center. (Press Enter to Continue");
 							carnival();
-							break;
-						case "STATS":
-							stats();
-							break;
-						default:	
-							System.out.println("INVALID COMMAND");
-							break;
-						}
-					}
-				}
-
-
-			case "KISSING":
-				if (kissed == true) {
-					System.out.println("As you walk toward her booth, she catches you in the corner of her eye and narrows her eyes. (Press Enter to Continue)");
-					game.nextLine();
-					System.out.println("Kisser: I already served you, you stuck-up, half-witted, scruffy-looking nerf herder! (Press Enter to Continue)");
-					game.nextLine();
-					System.out.println("She slaps you in the face and you run away from her booth, ashamed. (Press Enter to Continue)");
-					carnival();
-				}else {
-					System.out.println("You walk up to the kissing booth slowly and see a young lady behind the counter. (Press Enter to Continue)");
-					game.nextLine();
-					System.out.println("Kisser: Ugh, do I have to kiss you? (Y/N)");
-					while (true) {
-						String kiss = game.nextLine().toUpperCase();
-						switch(kiss) {
-						case "Y":
-							System.out.println("Kisser: Tell you what, how about I pay you $5 to not kiss me, okay? (Okay/Kiss Me Dangit)");
-							while (true) {
-								String kissme = game.nextLine().toUpperCase();
-								switch(kissme) {
-								case "OKAY":
-									System.out.println("Kisser: Alright, here you go... now leave please.");
-									playerStats.wallet = playerStats.wallet =5;
-									System.out.println("$5 was added to your balance, but now you feel hollow inside... (Press Enter to Continue)");
+						} else {
+							System.out.println("You walk over to the second booth and see a punching bag and a trainer. The lady behind the counter is completely ripped, her bicep is bigger than your entire head.");
+							System.out.println("Buffita: Hey! How'd you like to test your strength against this here punching bag? (Y/N)");
+							while(punch == true) {
+								String punching = game.nextLine().toUpperCase();
+								switch (punching) {
+								case "Y":
+									System.out.println("Buffita: Alright, LET'S DO THIS!");
+									System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
 									game.nextLine();
-									System.out.println("You leave her booth, crying internally. (Press Enter to Continue)");
-									kissed = true;
+									try {
+										CombatSystem.combat("Punching Bag", 10, 0);
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									if (CombatSystem.enemyHealth <= 0) {
+										System.out.println("Buffita: Oh, wow... you actually were able to beat my challenge... well, here's $5... go wild. (Press Enter to Continue)");
+										playerStats.wallet = playerStats.wallet +5;
+										game.nextLine();
+										System.out.println("$5 was just added to your balance. (Press Enter to Continue)");
+										game.nextLine();
+										System.out.println("Buffita: Okay, now get the heck out of here. (Press Enter to Continue)");
+										defeated = true;
+										carnival();
+										break;
+									}	break;
+								case "N":
+									System.out.println("Buffita: Oh, well if you decide you want to take your anger out, come back. (Press Enter to Continue)");
 									carnival();
 									break;
-								case "KISS ME DANGIT":
-									System.out.println("Kisser: You slimy piece of worm-ridden filth! (Press Enter to Continue)");
+								case "STATS":
+									stats();
+									break;
+								default:	
+									System.out.println("INVALID COMMAND");
+									break;
+								}
+							}
+						}
+
+
+					case "KISSING":
+						if (kissed == true) {
+							System.out.println("As you walk toward her booth, she catches you in the corner of her eye and narrows her eyes. (Press Enter to Continue)");
+							game.nextLine();
+							System.out.println("Kisser: I already served you, you stuck-up, half-witted, scruffy-looking nerf herder! (Press Enter to Continue)");
+							game.nextLine();
+							System.out.println("She slaps you in the face and you run away from her booth, ashamed. (Press Enter to Continue)");
+							carnival();
+						}else {
+							System.out.println("You walk up to the kissing booth slowly and see a young lady behind the counter. (Press Enter to Continue)");
+							game.nextLine();
+							System.out.println("Kisser: Ugh, do I have to kiss you? (Y/N)");
+							while (true) {
+								String kiss = game.nextLine().toUpperCase();
+								switch(kiss) {
+								case "Y":
+									System.out.println("Kisser: Tell you what, how about I pay you $5 to not kiss me, okay? (Okay/Kiss Me Dangit)");
+									while (true) {
+										String kissme = game.nextLine().toUpperCase();
+										switch(kissme) {
+										case "OKAY":
+											System.out.println("Kisser: Alright, here you go... now leave please.");
+											playerStats.wallet = playerStats.wallet =5;
+											System.out.println("$5 was added to your balance, but now you feel hollow inside... (Press Enter to Continue)");
+											game.nextLine();
+											System.out.println("You leave her booth, crying internally. (Press Enter to Continue)");
+											kissed = true;
+											carnival();
+											break;
+										case "KISS ME DANGIT":
+											System.out.println("Kisser: You slimy piece of worm-ridden filth! (Press Enter to Continue)");
+											game.nextLine();
+											System.out.println("She takes a $5 bill, kisses it, and slaps you in the face with it. (Press Enter to Continue)");
+											game.nextLine();
+											playerStats.wallet = playerStats.wallet +5;
+											System.out.println("$5 was added to your balance, but it doesn't heal your bruised face. (Press Enter to Continue)");
+											kissed = true;
+											game.nextLine();
+											System.out.println("You get up and run from her booth, terrified for your life. (Press Enter to Continue)");
+											carnival();
+											break;
+										case "STATS":
+											stats();
+											break;
+										default:
+											System.out.println("INVALID INPUT");
+											break;
+										}
+									}
+								case "N":
+									System.out.println("Kisser, so am I not good enought to be kissed? Fine! Get out, leave! (Press Enter to Continue)");
 									game.nextLine();
-									System.out.println("She takes a $5 bill, kisses it, and slaps you in the face with it. (Press Enter to Continue)");
-									game.nextLine();
-									playerStats.wallet = playerStats.wallet +5;
-									System.out.println("$5 was added to your balance, but it doesn't heal your bruised face. (Press Enter to Continue)");
-									kissed = true;
-									game.nextLine();
-									System.out.println("You get up and run from her booth, terrified for your life. (Press Enter to Continue)");
+									System.out.println("You run away from her booth, confused as all heck. (Press Enter to Continue)");
 									carnival();
 									break;
 								case "STATS":
@@ -489,31 +501,19 @@ public class PolybiusMain {
 									break;
 								}
 							}
-						case "N":
-							System.out.println("Kisser, so am I not good enought to be kissed? Fine! Get out, leave! (Press Enter to Continue)");
-							game.nextLine();
-							System.out.println("You run away from her booth, confused as all heck. (Press Enter to Continue)");
-							carnival();
-							break;
-						case "STATS":
-							stats();
-							break;
-						default:
-							System.out.println("INVALID INPUT");
-							break;
 						}
+					case "BACK":
+						System.out.println("You decide to head back the other way. (Press Enter to Continue)");
+						carnival();
+						break;
+					case "STATS":
+						stats();
+						break;
+					default:
+						System.out.println("INVALID COMMAND");
+						break;
 					}
 				}
-			case "BACK":
-				System.out.println("You decide to head back the other way. (Press Enter to Continue)");
-				carnival();
-				break;
-			case "STATS":
-				stats();
-				break;
-			default:
-				System.out.println("INVALID COMMAND");
-				break;
 			}
 		}
 	}
