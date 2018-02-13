@@ -120,31 +120,32 @@ public class CombatSystem {
 							}
 						}
 						didPlayerSuccessfullyCompleteMagicAttack  = true;
+
 						break;
 					}
 				}
+			}
 
-				if(enemyHealth <= 0){
-					enemyDeath = true;
-					System.out.println("Congratulations, you killed the " +enemyName+ ", good job.");
+			if(enemyHealth <= 0){
+				enemyDeath = true;
+				System.out.println("Congratulations, you killed the " +enemyName+ ", good job.");
+			}
+			
 
-					if (enemyAttack > 0 && !(enemyHealth <= 0)){
-						int minOuchAttack = enemyAttack - 2;
-						ouchDamage = (int)((Math.random()*5)+minOuchAttack);
-						health = health - ouchDamage;
-						System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health);
-					}
-				}
-
-				if (health <= 0) {
-					System.out.println("Oh no! You died!");
-					Thread.sleep(500);
-					System.out.println("Restarting Game...");
-					Thread.sleep(1500);
-					System.out.println("END GAME STATISTICS:");
-					stats();
-					System.exit(0);
-				}
+			if (health <= 0) {
+				System.out.println("Oh no! You died!");
+				Thread.sleep(500);
+				System.out.println("Restarting Game...");
+				Thread.sleep(1500);
+				System.out.println("END GAME STATISTICS:");
+				stats();
+				System.exit(0);
+			}
+			if (enemyAttack > 0 && !(enemyHealth <= 0)){
+				int minOuchAttack = enemyAttack - 2;
+				ouchDamage = (int)((Math.random()*5)+minOuchAttack);
+				health = health - ouchDamage;
+				System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health);
 			}
 		}
 	}

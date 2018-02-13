@@ -407,7 +407,7 @@ public class PolybiusMain {
 									System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
 									game.nextLine();
 									try {
-										CombatSystem.combat("Punching Bag", 10, 0);
+										CombatSystem.combat("Punching Bag", 10, 15);
 									} catch (Exception e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
