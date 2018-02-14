@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {
-	public static int health = 100;
+	public static int health = 1000;
 	public static int wallet = 0;
 	public int playerClass;
 	public static boolean fire = true;

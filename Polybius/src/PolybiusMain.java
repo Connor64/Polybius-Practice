@@ -68,6 +68,8 @@ public class PolybiusMain {
 			case "BEGIN":
 				Intro();
 				break;
+			case "UUDDLRLRBA":
+				CombatSystem.combat("Test_Enemy", 1000, 5);
 			default:
 				System.out.println("INVALID COMMAND");
 				break;
@@ -96,7 +98,7 @@ public class PolybiusMain {
 		System.out.println("");
 		System.out.println("Balance: $" + balance);
 		System.out.println("");
-		System.out.print("Health: " +health);
+		System.out.print("Health: " +CombatSystem.health);
 		System.out.println("");
 		System.out.println("Inventory:");
 		int lineNumber = 0;
