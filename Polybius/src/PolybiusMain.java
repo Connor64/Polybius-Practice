@@ -439,7 +439,6 @@ public class PolybiusMain {
 							}
 						}
 
-
 					case "KISSING":
 						if (kissed == true) {
 							System.out.println("As you walk toward her booth, she catches you in the corner of her eye and narrows her eyes. (Press Enter to Continue)");
