@@ -10,6 +10,7 @@ public class CombatSystem {
 	public static int magicBeamDamage;
 	public static int magicBeamDamageStop;
 	public static int burnDamage;
+	public static int iceDamage;
 	public static int beamDamage;
 	public static int ouchDamage;
 	public static int strength = NameAndClassSelection.strength;
@@ -24,7 +25,7 @@ public class CombatSystem {
 	static boolean fire = Player.fire;
 	static boolean ice = Player.ice;
 	static boolean beam = Player.beam;
-	public static boolean beamDown;
+	public static boolean beamDown, iceDown;
 	public static boolean fireGo, iceGo, beamGo;
 	static String classType = NameAndClassSelection.classType;
 
@@ -176,7 +177,15 @@ public class CombatSystem {
 							break;
 						case "ICE":
 							if (ice == true) {
-								System.out.println("You used freeze ray against " +enemyName+ " and dealt ");
+								int minAttack4 = magic - 2;
+								iceDamage = (int)(Math.random()*5)+minAttack4;
+								System.out.println("");
+								System.out.println("You used freeze ray against the " +enemyName+ "and dealt " +iceDamage+ " DMG.");
+								System.out.println("");
+								enemyHealth = enemyHealth - iceDamage;
+								System.out.println("The " +enemyName+ "'s health is now " +enemyHealth+ " HP. (Press Enter to Continue)");
+								game.nextLine();
+								iceGo = true;
 							}
 							break;
 						case "BEAM":
@@ -213,6 +222,7 @@ public class CombatSystem {
 				System.out.println("You activated the hooblalbah");
 				break;
 			case "STATS":
+				
 				stats();
 				break;
 			default:
@@ -229,15 +239,14 @@ public class CombatSystem {
 				stats();
 				System.exit(0);
 			}
-			if (enemyAttack > 0 && !(enemyHealth <= 0)){
+			if (enemyAttack > 0 && (enemyHealth > 0)){
 				if (beamDown == true) {
 					int minOuchAttack = enemyAttack - 2;
 					ouchDamage = (int)((Math.random()*2)+minOuchAttack);
 					health = health - ouchDamage;
 					System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
 					game.nextLine();
-				}
-				if (beamGo == true || fireGo == true || iceGo == true) {
+				} else if (beamGo == true || fireGo == true || iceGo == true) {
 					int minOuchAttack = enemyAttack - 2;
 					ouchDamage = (int)((Math.random()*5)+minOuchAttack);
 					health = health - ouchDamage;
