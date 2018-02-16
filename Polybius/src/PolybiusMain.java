@@ -409,7 +409,7 @@ public class PolybiusMain {
 									System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
 									game.nextLine();
 									try {
-										CombatSystem.combat("Punching Bag", 10, 15);
+										CombatSystem.combat("Punching Bag", 10, 0);
 									} catch (Exception e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
@@ -461,7 +461,7 @@ public class PolybiusMain {
 										switch(kissme) {
 										case "OKAY":
 											System.out.println("Kisser: Alright, here you go... now leave please.");
-											playerStats.wallet = playerStats.wallet =5;
+											playerStats.wallet = playerStats.wallet +5;
 											System.out.println("$5 was added to your balance, but now you feel hollow inside... (Press Enter to Continue)");
 											game.nextLine();
 											System.out.println("You leave her booth, crying internally. (Press Enter to Continue)");
@@ -484,7 +484,7 @@ public class PolybiusMain {
 											stats();
 											break;
 										default:
-											System.out.println("INVALID INPUT");
+											System.out.println("INVALID COMMAND");
 											break;
 										}
 									}
@@ -498,7 +498,7 @@ public class PolybiusMain {
 									stats();
 									break;
 								default:
-									System.out.println("INVALID INPUT");
+									System.out.println("INVALID COMMAND");
 									break;
 								}
 							}

@@ -17,7 +17,7 @@ public class CombatSystem {
 	public static int defense = NameAndClassSelection.defense;
 	public static int agility = NameAndClassSelection.agility;
 	public static int magic = NameAndClassSelection.magic;
-	public static int defenseCount;
+	public static int defenseCount = 0;
 	public static Random damage = new Random();
 	public static boolean enemyDeath = false;
 	public static int punchingBag = 1;
@@ -133,7 +133,6 @@ public class CombatSystem {
 							System.out.print("Ice, ");
 						}
 					}
-
 					if (beam == true){
 						if (fire == false && ice == false) {
 							System.out.println(" (Beam)");
@@ -141,7 +140,6 @@ public class CombatSystem {
 							System.out.print("Beam)");
 						}
 					}
-
 					boolean choice = false;
 					while (!choice){
 						String magicType = game.nextLine().toUpperCase();
@@ -230,15 +228,11 @@ public class CombatSystem {
 				}
 				break;
 			case "DEFEND":
-				defenseCount = defenseCount +1;
-				if (defenseCount > 2){
-					defenseCount = 0;
-				}
-				System.out.println("You activated the shield, the enemy will have reduced attacks now. (Press Enter to Continue)");
+				System.out.println("You activated the shield, the enemy will have reduced attacks now for 2 rounds. (Press Enter to Continue)");
+				defenseUp = true;
 				game.nextLine();
 				break;
 			case "STATS":
-
 				stats();
 				break;
 			default:
@@ -255,19 +249,29 @@ public class CombatSystem {
 				stats();
 				System.exit(0);
 			}
+			if (defenseCount > 1){
+				defenseUp = false;
+				defenseCount = 0;
+			}
 			if (enemyAttack > 0 && (enemyHealth > 0)){
+				
 				if (iceDown == true){
 					System.out.println("The enemy  could not attack. (Press Enter to Continue)");
 				}else{
 					if(defenseUp == true){
+						defenseCount = defenseCount +1;
 						defense = defense/2 +5;
 						int minOuchAttack = enemyAttack - 2;
 						ouchDamage = (int)((Math.random()*2)+minOuchAttack);
+						ouchDamage = ouchDamage - defense;
+						if (ouchDamage <= 0){
+							ouchDamage = 1;
+						}
 						health = health - ouchDamage;
 						System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
 						game.nextLine();
-					}
-					if (beamDown == true) {
+
+					}else if (beamDown == true) {
 						int minOuchAttack = enemyAttack - 2;
 						ouchDamage = (int)((Math.random()*2)+minOuchAttack);
 						health = health - ouchDamage;
