@@ -4,8 +4,8 @@ public class PolybiusMain {
 	public static boolean visited = false;
 	public static boolean kissed = false;
 	public static boolean defeated = false;
+	public static boolean caked = false;
 	public static Scanner game = new Scanner(System.in);
-	public static Player playerStats = new Player();
 	public static void main(String args[]) throws InterruptedException {
 		boolean next;
 		NameAndClassSelection userInputName = new NameAndClassSelection();
@@ -34,7 +34,7 @@ public class PolybiusMain {
 		int defense = NameAndClassSelection.defense;
 		int agility = NameAndClassSelection.agility;
 		int magic = NameAndClassSelection.magic;
-		int balance = playerStats.wallet;
+		int balance = Player.wallet;
 
 		System.out.println("At any point, you can type 'stats' to view stats");
 		System.out.println("");
@@ -58,7 +58,7 @@ public class PolybiusMain {
 				System.out.println("");
 				System.out.println("Inventory:");
 				int lineNumber = 0;
-				for (String item : playerStats.inventory) {
+				for (String item : Player.inventory) {
 					if (item != "") {
 						++lineNumber;
 					}
@@ -69,7 +69,7 @@ public class PolybiusMain {
 				Intro();
 				break;
 			case "UUDDLRLRBA":
-				CombatSystem.combat("Test_Enemy", 1000, 5);
+				CombatSystem.combat("Test_Enemy", 1000, 1000, 5);
 			default:
 				System.out.println("INVALID COMMAND");
 				break;
@@ -83,8 +83,7 @@ public class PolybiusMain {
 		int defense = NameAndClassSelection.defense;
 		int agility = NameAndClassSelection.agility;
 		int magic = NameAndClassSelection.magic;
-		int balance = playerStats.wallet;
-		int health = playerStats.health;
+		int balance = Player.wallet;
 
 		System.out.println("Class Type: " + stats);
 		System.out.println("	Strength: " + strength);
@@ -96,13 +95,15 @@ public class PolybiusMain {
 			System.out.println("	Magic: " + magic);
 		}
 		System.out.println("");
+		System.out.println("XP: " +Player.xp);
+		System.out.println("");
 		System.out.println("Balance: $" + balance);
 		System.out.println("");
 		System.out.print("Health: " +CombatSystem.health);
 		System.out.println("");
 		System.out.println("Inventory:");
 		int lineNumber = 0;
-		for (String item : playerStats.inventory) {
+		for (String item : Player.inventory) {
 			if (item != "") {
 				++lineNumber;
 			}
@@ -158,7 +159,7 @@ public class PolybiusMain {
 			switch (grab) {
 			case "GRAB":
 				System.out.println("You added the Letter to your inventory. (Press Enter to Continue)");
-				playerStats.inventory.add("Letter");
+				Player.inventory.add("Letter");
 				go = false;
 				carnival();
 				break;
@@ -182,7 +183,7 @@ public class PolybiusMain {
 		game.nextLine();
 		System.out.println("You reach the middle of the carnival, it splits into 3 branches, which way would you like to go? (Forward, Left, Right)");	
 		while (go == true) {
-			int balance = playerStats.wallet;
+			int balance = Player.wallet;
 			String direction = game.nextLine().toUpperCase();
 			switch (direction) {
 			case "LEFT":
@@ -202,8 +203,9 @@ public class PolybiusMain {
 									System.out.println("Old Man: Oh, it looks like you can't afford it... come back to me once you've earned enough. (Press Enter to Continue)");
 								} else {
 									System.out.println("Old Man: Pleasure doin' business with ya. (Press Enter to Continue)");
-									playerStats.inventory.add("Cake");
-									playerStats.wallet = playerStats.wallet - 15;
+									Player.inventory.add("Cake");
+									caked = true;
+									Player.wallet = Player.wallet - 15;
 								}
 								go3 = false;
 								carnival();
@@ -315,7 +317,7 @@ public class PolybiusMain {
 																	break;
 																case "3":
 																	System.out.println("Inquiry Man: Wow! You answered all 4 of my questions corretly. Now I have to do my part, here's $5, go wild...");
-																	playerStats.wallet = playerStats.wallet +5;
+																	Player.wallet = Player.wallet +5;
 																	System.out.println("$5 has been added to your balance. (Press Enter to Continue)");
 																	game.nextLine();
 																	System.out.println("You leave the man's booth, with a smile on your face... you totally just jipped that guy, you looked up all the answers on your phone. (Press Enter to Continue)");
@@ -409,14 +411,14 @@ public class PolybiusMain {
 									System.out.println("You take a fighting stance against the punching bag. (Press Enter to Continue)");
 									game.nextLine();
 									try {
-										CombatSystem.combat("Punching Bag", 10, 0);
+										CombatSystem.combat("Punching Bag", 10, 10, 0);
 									} catch (Exception e) {
-										// TODO Auto-generated catch block
+										//TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 									if (CombatSystem.enemyHealth <= 0) {
 										System.out.println("Buffita: Oh, wow... you actually were able to beat my challenge... well, here's $5... go wild. (Press Enter to Continue)");
-										playerStats.wallet = playerStats.wallet +5;
+										Player.wallet = Player.wallet +5;
 										game.nextLine();
 										System.out.println("$5 was just added to your balance. (Press Enter to Continue)");
 										game.nextLine();
@@ -461,7 +463,7 @@ public class PolybiusMain {
 										switch(kissme) {
 										case "OKAY":
 											System.out.println("Kisser: Alright, here you go... now leave please.");
-											playerStats.wallet = playerStats.wallet +5;
+											Player.wallet = Player.wallet +5;
 											System.out.println("$5 was added to your balance, but now you feel hollow inside... (Press Enter to Continue)");
 											game.nextLine();
 											System.out.println("You leave her booth, crying internally. (Press Enter to Continue)");
@@ -473,7 +475,7 @@ public class PolybiusMain {
 											game.nextLine();
 											System.out.println("She takes a $5 bill, kisses it, and slaps you in the face with it. (Press Enter to Continue)");
 											game.nextLine();
-											playerStats.wallet = playerStats.wallet +5;
+											Player.wallet = Player.wallet +5;
 											System.out.println("$5 was added to your balance, but it doesn't heal your bruised face. (Press Enter to Continue)");
 											kissed = true;
 											game.nextLine();
@@ -513,6 +515,48 @@ public class PolybiusMain {
 					default:
 						System.out.println("INVALID COMMAND");
 						break;
+					}
+				}
+			case "FORWARD":
+				boolean forwards = true;
+				while (forwards) {
+					if (caked = false) {
+						System.out.println("You begin to walk forward, but you turn around, feeling that you haven't explored everything yet... (Press Enter to Continue)");
+						carnival();
+					} else {
+						System.out.println("Listen to Exposition? (Y/N)");
+						boolean expoChoice = true;
+						while (expoChoice) {
+							String exposition = game.nextLine().toUpperCase();
+							switch (exposition) {
+							case "Y":
+								System.out.println("You walk up a grassy hill until you reach the top to see the surface of the huge dome that you call home. (Press Enter to Continue)");
+								game.nextLine();
+								System.out.println("Daisy is sitting on the end of a ledge, looking out on the landscape beyond the dome. It was forbidden for anybody to go beyond the border. (Press Enter to Continue)");
+								game.nextLine();
+								System.out.println("Glaciorbis is a completely frozen-over planet, but it was the only option to inhabit when the Earth began to fall apart. (Press Enter to Continue)");
+								game.nextLine();
+								System.out.println("The Earth went through a week on non-stop earthquakes, causing the tectonic plates to shred apart from repeated force. (Press Enter to Continue)");
+								game.nextLine();
+								System.out.println("All of Earth's inhabitants left the, crumbling, planet in search for a new home. That's when they stumbled upon Glaciorbis. (Press Enter to Continue)");
+								game.nextLine();
+								System.out.println("Glaciorbis, despite it being completely iced, was the only suitable choice for living. Every other reachable planet was inhabitable. (Press Enter to Continue)");
+								game.nextLine();
+								
+								expoChoice = false;
+								break;
+							case "N":
+								System.out.println("You skipped the exposition.");
+								expoChoice = false;
+								break;
+							case "STATS":
+								stats();
+								break;
+							default:
+								System.out.println("INVALID COMMAND");
+								break;
+							}
+						}
 					}
 				}
 			}

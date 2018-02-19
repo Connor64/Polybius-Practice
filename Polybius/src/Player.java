@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Player {
 	public static int health = 1000;
+	public static int xp = 0;
 	public static int wallet = 0;
 	public int playerClass;
 	public static boolean fire = true;

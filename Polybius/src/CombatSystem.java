@@ -29,6 +29,7 @@ public class CombatSystem {
 	public static boolean beamDown, iceDown;
 	public static boolean fireGo, iceGo, beamGo;
 	public static boolean defenseUp;
+	public static boolean choice = false;
 	static String classType = NameAndClassSelection.classType;
 
 	private static void stats() {
@@ -49,6 +50,8 @@ public class CombatSystem {
 			System.out.println("	Magic: " + magic);
 		}
 		System.out.println("");
+		System.out.println("XP: " +Player.xp);
+		System.out.println("");
 		System.out.println("Balance: $" + balance);
 		System.out.println("");
 		System.out.print("Health: " +health);
@@ -63,8 +66,7 @@ public class CombatSystem {
 		}
 	}
 
-	public static void combat(String enemyName, int enemyHealth, int enemyAttack) throws InterruptedException {
-
+	public static void combat(String enemyName, int enemyHealth, int initHealth, int enemyAttack) throws InterruptedException {
 		System.out.print("You have the first move. ");
 		while (!enemyDeath) {
 			if (classType.equals("Swordsman")){
@@ -88,7 +90,7 @@ public class CombatSystem {
 								stats();
 								break;
 							case "BACK":
-								combat(enemyName, enemyHealth, enemyAttack);
+								combat(enemyName, enemyHealth, initHealth, enemyAttack);
 								break;
 							default:
 								System.out.println("INVALD COMMAND");
@@ -96,7 +98,10 @@ public class CombatSystem {
 							}
 						}
 					case "DEFEND":
-						System.out.println("You are suddenly protected by an energy shield, surrounding your body.");
+						System.out.println("You activated the shield, the enemy will have reduced attacks now for 2 rounds. (Press Enter to Continue)");
+						defenseUp = true;
+						choice = true;
+						game.nextLine();
 						break;
 					}
 				}
@@ -136,11 +141,11 @@ public class CombatSystem {
 					if (beam == true){
 						if (fire == false && ice == false) {
 							System.out.println(" (Beam)");
-						}else {
+						} else {
 							System.out.print("Beam)");
 						}
 					}
-					boolean choice = false;
+
 					while (!choice){
 						String magicType = game.nextLine().toUpperCase();
 						switch (magicType){
@@ -153,7 +158,6 @@ public class CombatSystem {
 								System.out.println("");
 								enemyHealth = enemyHealth - burnDamage;
 								System.out.println("The " +enemyName+ "'s health is now " +enemyHealth+ " HP. (Press Enter to Continue)");
-								System.out.println("");
 								game.nextLine();
 								fireGo = true;
 								double burn1 = (int) (Math.random()*100)+1;
@@ -165,13 +169,12 @@ public class CombatSystem {
 									} else {
 										System.out.println("The " +enemyName+ "burst into flames! " +magicFireDamageAdditional+ " DMG point was dealt to it. (Press Enter to Continue)");
 									}
-									System.out.println("");
 									game.nextLine();
 									enemyHealth = enemyHealth - magicFireDamageAdditional;
-									System.out.println("The " +enemyName+ "'s health is now " +enemyHealth+ " HP.");
+									System.out.println("The " +enemyName+ "'s health is now " +enemyHealth+ " HP. (Press Enter to Continue)");
+									game.nextLine();
 								}
-
-							}else {
+							} else {
 								System.out.println("INVALID COMMAND");
 							}
 							choice = true;
@@ -219,6 +222,9 @@ public class CombatSystem {
 						case "STATS":
 							stats();
 							break;
+						case "BACK":
+							combat(enemyName, enemyHealth, initHealth, enemyAttack);
+							break;
 						default:
 							System.out.println("INVALID COMMAND");
 							break;
@@ -230,6 +236,7 @@ public class CombatSystem {
 			case "DEFEND":
 				System.out.println("You activated the shield, the enemy will have reduced attacks now for 2 rounds. (Press Enter to Continue)");
 				defenseUp = true;
+				choice = true;
 				game.nextLine();
 				break;
 			case "STATS":
@@ -253,45 +260,53 @@ public class CombatSystem {
 				defenseUp = false;
 				defenseCount = 0;
 			}
-			if (enemyAttack > 0 && (enemyHealth > 0)){
-				
-				if (iceDown == true){
-					System.out.println("The enemy  could not attack. (Press Enter to Continue)");
-				}else{
-					if(defenseUp == true){
-						defenseCount = defenseCount +1;
-						defense = defense/2 +5;
-						int minOuchAttack = enemyAttack - 2;
-						ouchDamage = (int)((Math.random()*2)+minOuchAttack);
-						ouchDamage = ouchDamage - defense;
-						if (ouchDamage <= 0){
-							ouchDamage = 1;
-						}
-						health = health - ouchDamage;
-						System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
-						game.nextLine();
+			if (choice == true) {
 
-					}else if (beamDown == true) {
-						int minOuchAttack = enemyAttack - 2;
-						ouchDamage = (int)((Math.random()*2)+minOuchAttack);
-						health = health - ouchDamage;
-						System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
+
+				if (enemyAttack > 0 && (enemyHealth > 0)){
+
+					if (iceDown == true){
+						System.out.println("The enemy could not attack. (Press Enter to Continue)");
 						game.nextLine();
-					} else {
-						int minOuchAttack = enemyAttack - 2;
-						ouchDamage = (int)((Math.random()*5)+minOuchAttack);
-						health = health - ouchDamage;
-						System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
-						game.nextLine();
+					}else{
+						if(defenseUp == true){
+							defenseCount = defenseCount +1;
+							defense = defense/2 +5;
+							int minOuchAttack = enemyAttack - 2;
+							ouchDamage = (int)((Math.random()*2)+minOuchAttack);
+							ouchDamage = ouchDamage - defense;
+							if (ouchDamage <= 0){
+								ouchDamage = 1;
+							}
+							health = health - ouchDamage;
+							System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
+							game.nextLine();
+
+						}else if (beamDown == true) {
+							int minOuchAttack = enemyAttack - 2;
+							ouchDamage = (int)((Math.random()*2)+minOuchAttack);
+							health = health - ouchDamage;
+							System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
+							game.nextLine();
+						} else {
+							int minOuchAttack = enemyAttack - 2;
+							ouchDamage = (int)((Math.random()*5)+minOuchAttack);
+							health = health - ouchDamage;
+							System.out.println(enemyName+ " dealt " +ouchDamage+ ". Your health is now " +health+ "HP. (Press Enter to Continue)");
+							game.nextLine();
+						}
 					}
+				} else {
+					enemyDeath = true;
+					System.out.println("Congratulations, you killed the " +enemyName+ ", good job.");
+					int xpBonus = (enemyHealth + initHealth)/2;
+					Player.xp = Player.xp + xpBonus;
 				}
-			} else {
-				enemyDeath = true;
-				System.out.println("Congratulations, you killed the " +enemyName+ ", good job.");
 			}
 			beamDown = false;
 			iceDown = false;
 			fireGo = false;
+			choice = false;
 		}
 	}
 }
